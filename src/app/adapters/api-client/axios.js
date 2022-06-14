@@ -41,18 +41,6 @@ export const Api = () => {
     });
 };
 
-export const Model = () => {
-    return axios.create({
-        adapter: shortCache.adapter, // no need for this project
-        baseURL: `${process.env.REACT_APP_MODEL_HOSTNAME}`, // don't forget to change in backend
-        // headers: "Access-Control-Allow-Origin: *",
-        timeout: 30000,
-        timeoutErrorMessage: 'ECONNTIMEOUT'
-    });
-};
-
-export const axiosInstance = /^true$/i.test(
-    process.env.REACT_APP_USE_MOCKS || 'false'
-)
+export const axiosInstance = /^true$/i.test(process.env.REACT_APP_USE_MOCKS || 'false')
     ? axiosMock
     : axiosBack;

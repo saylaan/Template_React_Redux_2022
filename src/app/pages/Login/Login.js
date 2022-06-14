@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { IconButton, Typography, TextField, Button } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 /* ------------- || Action Redux || ------------- */
-import { login, fetchRoom, fetchRoomRoom } from '../../redux/slices';
+import { login, fetchRoom, fetchRoomUser } from '../../redux/slices';
 /* ------------- || Api-client || ------------- */
 // import { apiClient } from '../../adapters/api-client';
 import AuthService from '../../adapters/api-client/authentification/auth.service';
@@ -27,7 +27,7 @@ const Login = () => {
     // });
     const initLocalStorage = () => {
         dispatch(fetchRoom());
-        dispatch(fetchRoomRoom());
+        dispatch(fetchRoomUser());
         dispatch(login());
     };
     // const hasError = (field) => {
