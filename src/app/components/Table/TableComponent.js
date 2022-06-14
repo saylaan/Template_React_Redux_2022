@@ -1,16 +1,17 @@
 import * as React from 'react';
-import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid';
+// import { DataGrid, GridRowsProp, GridColDef, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 
 export default function TableComponent({ columns, rows, pagination }) {
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(20);
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
+    // const [page, setPage] = React.useState(0);
+    // const [rowsPerPage, setRowsPerPage] = React.useState(20);
+    // const handleChangePage = (event, newPage) => {
+    //     setPage(newPage);
+    // };
+    // const handleChangeRowsPerPage = (event) => {
+    //     setRowsPerPage(+event.target.value);
+    //     setPage(0);
+    // };
     let gridRows = [];
     if (rows !== undefined) {
         gridRows = rows.map((row, i) => {

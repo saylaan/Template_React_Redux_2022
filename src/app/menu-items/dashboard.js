@@ -10,8 +10,7 @@ const dashboard = {
             title: 'Dashboard',
             type: 'item',
             url: 'dashboard',
-            icon: DashboardIcon,
-            breadcrumbs: false
+            icon: DashboardIcon
             // children: [
             //     {
             //         id: 'show-scenario',
@@ -19,7 +18,6 @@ const dashboard = {
             //         type: 'item',
             //         url: 'scenario',
             //         icon: ContentPasteSearchIcon,
-            //         breadcrumbs: false
             //     },
         }
     ]

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useLocation, Navigate, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 /* ------------- || Third Party || ------------- */
-// import * as Yup from 'yup';
 /* ------------- || External Components Library || ------------- */
 import { IconButton, Typography, TextField, Button } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -17,79 +16,23 @@ const Login = () => {
     const dispatch = useDispatch();
     const isAuth = AuthService.getCurrentUser();
     let location = useLocation();
-    // const [validation, setValidation] = useState({ username: '', password: '' });
     const [credentials, setCredentials] = useState({ username: '', password: '' });
-    // const [isSubmitting, setIsSubmitting] = useState(false);
-    // credentialSchema = Yup.object().shape({
-    //   email: Yup.string()
-    //     .email('The e-mail must be a valid email address.')
-    //     .required('The e-mail field is required.'),
-    // });
     const initLocalStorage = () => {
         dispatch(fetchRoom());
         dispatch(fetchRoomUser());
         dispatch(login());
     };
-    // const hasError = (field) => {
-    //   return setValidation[field] != null;
-    // };
-    // const validateForm = () => {
-    //   let validationErrors = {
-    //     email: null,
-    //   };
-    //   const validationOptions = {
-    //     abortEarly: false
-    //   };
-    //   try {
-    //     this.userSchema.validateSync(this.state, validationOptions);
-    //     return true;
-    //   } catch (e) {
-    //     if (e.name !== 'ValidationError') {
-    //       alert('Unknown error occurred while validating the inputs');
-    //       return false;
-    //     }
-    //     for (let index in e.inner) {
-    //       const key = e.inner[index].path;
-    //       validationErrors[key] = e.errors[index];
-    //     }
-    //     setValidation(validationErrors);
-    //     return false;
-    //   }
-    // }
-    // const setServerValidationErrors = (failures) => {
-    //   let validationErrors = {
-    //     email: null,
-    //   };
-    //   if (failures.hasOwnProperty('email')) {
-    //     validationErrors.email = failures.email.join(', ');
-    //   }
-    //   setValidation(validationErrors);
-    // }
     const handleChange = (target) => {
         const { name, value } = target;
         setCredentials({ ...credentials, [name]: value });
     };
-    const handleLogin = (values) => {
-        // if (! this.validateForm()) {
-        //   return;
-        // }
-        // setIsSubmitting(true);
-        // AuthService.signin(values).then(async () => {
-        // setIsSubmitting(false);
+    const handleLogin = () => {
         localStorage.setItem(
             'user',
             JSON.stringify({ user: { user: 'geoff', id: 1, token: 'dkqdljkeâe1313dlka^da' } })
         );
         initLocalStorage();
         navigate('/app/dashboard');
-        // });
-        // .catch((error) => {
-        //     const response = error.response;
-        //     if (response.status === 422) {
-        //         this.setServerValidationErrors(response.data.failures);
-        //         // setIsSubmitting(false);
-        //         return;
-        //     }
         // });
     };
     if (isAuth) {
@@ -127,8 +70,6 @@ const Login = () => {
                 label={'Username'}
                 name={'username'}
                 value={credentials.username}
-                // errror={hasError('username')}
-                // helperText={validation.email}
                 onChange={(e) => handleChange(e.target)}
                 style={{ width: '100%', marginTop: '32px' }}
             />
@@ -150,7 +91,6 @@ const Login = () => {
                     marginTop: '32px'
                 }}
                 onClick={() => handleLogin(credentials)}
-                // disabled={isSubmitting}>
             >
                 Sign in
             </Button>
