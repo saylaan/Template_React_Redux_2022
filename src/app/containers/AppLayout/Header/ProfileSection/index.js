@@ -26,34 +26,15 @@ import MainCard from '../../../../components/Cards/MainCard';
 import Transitions from '../../../../components/Extended/Transitions';
 import User1 from '../../../../assets/images/users/user-round.svg';
 /* ------------- || Action Redux || ------------- */
-import {
-    logout,
-    clearIot,
-    clearLog,
-    clearRoom,
-    clearModel,
-    clearRoomIot,
-    clearICategory,
-    clearICategoryIot,
-    clearScenario,
-    clearAction,
-    clearTrigger,
-    clearCondition,
-    clearScenarioAction,
-    clearScenarioTrigger,
-    clearScenarioCondition
-} from '../../../../redux/slices';
+import { logout, clearRoom, clearRoomUser } from '../../../../redux/slices';
 /* ------------- || Api-client || ------------- */
 import AuthService from '../../../../adapters/api-client/authentification/auth.service';
-/* ------------- || Provider Imports || ------------- */
-import useSocket from '../../../../providers/SocketProvider';
 
 const ProfileSection = () => {
     const theme = useTheme();
     const customization = useSelector((state) => state.customization.value);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { socket, disconnectSocket } = useSocket();
     const [selectedIndex, setSelectedIndex] = useState(-1);
     const [open, setOpen] = useState(false);
     /**
@@ -61,26 +42,13 @@ const ProfileSection = () => {
      * */
     const anchorRef = useRef(null);
     const cleanLocalStorage = () => {
-        dispatch(clearIot());
-        dispatch(clearLog());
         dispatch(clearRoom());
-        dispatch(clearModel());
-        dispatch(clearRoomIot());
-        dispatch(clearScenario());
-        dispatch(clearAction());
-        dispatch(clearTrigger());
-        dispatch(clearCondition());
-        dispatch(clearScenarioAction());
-        dispatch(clearScenarioTrigger());
-        dispatch(clearScenarioCondition());
-        dispatch(clearICategory());
-        dispatch(clearICategoryIot());
+        dispatch(clearRoomUser());
         dispatch(logout());
     };
     const handleLogout = async () => {
         AuthService.signout();
         cleanLocalStorage();
-        if (socket) disconnectSocket();
         navigate('/');
     };
     const handleClose = (event) => {
@@ -128,7 +96,11 @@ const ProfileSection = () => {
                 icon={
                     <Avatar
                         src={User1}
-                        sx={{ ...theme.typography.mediumAvatar, margin: '8px 0 8px 8px !important', cursor: 'pointer' }}
+                        sx={{
+                            ...theme.typography.mediumAvatar,
+                            margin: '8px 0 8px 8px !important',
+                            cursor: 'pointer'
+                        }}
                         ref={anchorRef}
                         aria-controls={open ? 'menu-list-grow' : undefined}
                         aria-haspopup="true"
@@ -165,18 +137,38 @@ const ProfileSection = () => {
                     <Transitions in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
+                                <MainCard
+                                    border={false}
+                                    elevation={16}
+                                    content={false}
+                                    boxShadow
+                                    shadow={theme.shadows[16]}
+                                >
                                     <Box sx={{ p: 2 }}>
                                         <Stack>
-                                            <Stack direction="row" spacing={0.5} alignItems="center">
+                                            <Stack
+                                                direction="row"
+                                                spacing={0.5}
+                                                alignItems="center"
+                                            >
                                                 <Typography variant="h4">Good Morning,</Typography>
-                                                <Typography component="span" variant="h4" sx={{ fontWeight: 400 }}>
+                                                <Typography
+                                                    component="span"
+                                                    variant="h4"
+                                                    sx={{ fontWeight: 400 }}
+                                                >
                                                     Admin
                                                 </Typography>
                                             </Stack>
                                         </Stack>
                                     </Box>
-                                    <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
+                                    <PerfectScrollbar
+                                        style={{
+                                            height: '100%',
+                                            maxHeight: 'calc(100vh - 250px)',
+                                            overflowX: 'hidden'
+                                        }}
+                                    >
                                         <Box sx={{ p: 2 }}>
                                             <Divider />
                                             <List
@@ -196,14 +188,22 @@ const ProfileSection = () => {
                                                 }}
                                             >
                                                 <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                    sx={{
+                                                        borderRadius: `${customization.borderRadius}px`
+                                                    }}
                                                     selected={selectedIndex === 4}
                                                     onClick={handleLogout}
                                                 >
                                                     <ListItemIcon>
                                                         <ExitToAppIcon stroke={1.5} size="1.3rem" />
                                                     </ListItemIcon>
-                                                    <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
+                                                    <ListItemText
+                                                        primary={
+                                                            <Typography variant="body2">
+                                                                Logout
+                                                            </Typography>
+                                                        }
+                                                    />
                                                 </ListItemButton>
                                                 <Divider />
                                             </List>

@@ -7,34 +7,15 @@ import { useDispatch } from 'react-redux';
 import { IconButton, Typography, TextField, Button } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 /* ------------- || Action Redux || ------------- */
-import {
-    login,
-    fetchIot,
-    fetchRoom,
-    fetchRoomIot,
-    fetchScenario,
-    fetchAction,
-    fetchTrigger,
-    fetchCondition,
-    fetchScenarioAction,
-    fetchScenarioTrigger,
-    fetchScenarioCondition,
-    fetchLog,
-    // fetchModel,
-    fetchICategory,
-    fetchICategoryIot
-} from '../../redux/slices';
+import { login, fetchRoom, fetchRoomRoom } from '../../redux/slices';
 /* ------------- || Api-client || ------------- */
 // import { apiClient } from '../../adapters/api-client';
 import AuthService from '../../adapters/api-client/authentification/auth.service';
-/* ------------- || Providers imports || ------------- */
-import useSocket from '../../providers/SocketProvider';
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const isAuth = AuthService.getCurrentUser();
-    const { connect } = useSocket();
     let location = useLocation();
     // const [validation, setValidation] = useState({ username: '', password: '' });
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -45,19 +26,8 @@ const Login = () => {
     //     .required('The e-mail field is required.'),
     // });
     const initLocalStorage = () => {
-        dispatch(fetchIot());
         dispatch(fetchRoom());
-        dispatch(fetchRoomIot());
-        dispatch(fetchScenario());
-        dispatch(fetchAction());
-        dispatch(fetchTrigger());
-        dispatch(fetchCondition());
-        dispatch(fetchScenarioAction());
-        dispatch(fetchScenarioTrigger());
-        dispatch(fetchScenarioCondition());
-        dispatch(fetchLog());
-        dispatch(fetchICategory());
-        dispatch(fetchICategoryIot());
+        dispatch(fetchRoomRoom());
         dispatch(login());
     };
     // const hasError = (field) => {
@@ -104,12 +74,15 @@ const Login = () => {
         //   return;
         // }
         // setIsSubmitting(true);
-        AuthService.signin(values).then(async () => {
-            // setIsSubmitting(false);
-            initLocalStorage();
-            connect();
-            navigate('/app/dashboard');
-        });
+        // AuthService.signin(values).then(async () => {
+        // setIsSubmitting(false);
+        localStorage.setItem(
+            'user',
+            JSON.stringify({ user: { user: 'geoff', id: 1, token: 'dkqdljkeâe1313dlka^da' } })
+        );
+        initLocalStorage();
+        navigate('/app/dashboard');
+        // });
         // .catch((error) => {
         //     const response = error.response;
         //     if (response.status === 422) {
@@ -136,7 +109,14 @@ const Login = () => {
                 borderRadius: '5px'
             }}
         >
-            <IconButton disabled={true} style={{ marginLeft: 'auto', marginRight: 'auto', backgroundColor: 'rgb(245, 0, 87)' }}>
+            <IconButton
+                disabled={true}
+                style={{
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                    backgroundColor: 'rgb(245, 0, 87)'
+                }}
+            >
                 <LockOutlinedIcon style={{ color: 'white' }} fontSize={'large'} />
             </IconButton>
             <Typography variant={'h4'} style={{ marginLeft: 'auto', marginRight: 'auto' }}>
@@ -162,7 +142,13 @@ const Login = () => {
                 style={{ width: '100%', marginTop: '64px' }}
             />
             <Button
-                style={{ borderRadius: '5px', backgroundColor: '#004AAD', color: 'white', width: '100%', marginTop: '32px' }}
+                style={{
+                    borderRadius: '5px',
+                    backgroundColor: '#004AAD',
+                    color: 'white',
+                    width: '100%',
+                    marginTop: '32px'
+                }}
                 onClick={() => handleLogin(credentials)}
                 // disabled={isSubmitting}>
             >

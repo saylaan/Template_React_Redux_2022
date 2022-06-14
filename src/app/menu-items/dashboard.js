@@ -12,6 +12,15 @@ const dashboard = {
             url: 'dashboard',
             icon: DashboardIcon,
             breadcrumbs: false
+            // children: [
+            //     {
+            //         id: 'show-scenario',
+            //         title: 'Show Scenario',
+            //         type: 'item',
+            //         url: 'scenario',
+            //         icon: ContentPasteSearchIcon,
+            //         breadcrumbs: false
+            //     },
         }
     ]
 };

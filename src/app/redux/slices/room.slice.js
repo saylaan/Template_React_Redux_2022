@@ -7,9 +7,14 @@ import RoomService from '../../adapters/api-client/room/room.service';
 export const roomsAdapter = createEntityAdapter();
 const initialState = roomsAdapter.getInitialState();
 
+// const initialStateValue = {
+//     data: []
+// };
+
 export const roomSlice = createSlice({
     name: 'rooms',
     initialState,
+    // initialState: { value: initialStateValue },
     reducers: {
         clearRoom: () => initialState
     },

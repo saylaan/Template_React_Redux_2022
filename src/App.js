@@ -9,8 +9,6 @@ import NavigationScroll from './app/components/NavigationScroll';
 import Routes from './app/routes';
 /* ------------- || Third Party Imports || ------------- */
 import { AnimatePresence } from 'framer-motion';
-/* ------------- || Providers Imports || ------------- */
-import { SocketProvider } from './app/providers/SocketProvider';
 /* ------------- || defaultTheme || ------------- */
 import themes from './app/themes';
 /* ------------- || Styles || ------------- */
@@ -25,9 +23,7 @@ const App = () => {
             <ThemeProvider theme={themes(customization)}>
                 <CssBaseline />
                 <NavigationScroll>
-                    <AnimatePresence exitBeforeEnter>
-                        <SocketProvider>{Routes()}</SocketProvider>
-                    </AnimatePresence>
+                    <AnimatePresence exitBeforeEnter>{Routes()}</AnimatePresence>
                 </NavigationScroll>
             </ThemeProvider>
         </StyledEngineProvider>
